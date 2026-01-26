@@ -77,7 +77,7 @@ class _NewsPageState extends State<NewsPage> {
                           return _FullWidthNewsCard(article: article);
                         }
 
-                        // Two-column grid row
+                        // Two-column grid row logic
                         final secondIndex = index + 1;
 
                         if (secondIndex >= state.articles.length ||
