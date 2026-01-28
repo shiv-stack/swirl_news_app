@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:swirl_news_app/features/news/presentation/bloc/news_bloc.dart';
 import 'package:swirl_news_app/features/news/presentation/pages/news_page.dart';
 import 'package:swirl_news_app/injection.dart';
@@ -7,7 +8,10 @@ import 'package:swirl_news_app/injection.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init('e8895bd205eb41cf80aee0d2118ca7ad'); //api key
+  // await init('e8895bd205eb41cf80aee0d2118ca7ad'); //api key
+  await dotenv.load(fileName: ".env");
+
+  await init(dotenv.env['NEWS_API_KEY']!);
   runApp(const MyApp());
 }
 
