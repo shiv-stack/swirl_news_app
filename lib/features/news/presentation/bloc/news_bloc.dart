@@ -33,7 +33,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     state is NewsLoaded ? (state as NewsLoaded).articles : <NewsEntity>[];
 
 
-    // Show loader only for first page
+    // Showing loader only for first page
     if (page == 1) {
       emit(NewsLoading());
     }
@@ -47,18 +47,18 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         emit(NewsLoaded(currentArticles, false));
       },
       (newArticles) {
-        // 1. Increment page for the next request
+        //  Incrementing page for the next request
         page++;
 
-        // 2. Identify truly unique articles by comparing URLs
-        // We filter 'newArticles' to only keep those not already in 'currentArticles'
+        // 
+        //  filter 'newArticles' to only keep those not already in 'currentArticles'
         final uniqueNewArticles = newArticles.where((newArt) {
           return !currentArticles.any((existingArt) => existingArt.url == newArt.url);
         }).toList();
 
         final hasReachedMax = newArticles.length < pageSize;
 
-        // 3. Merge the lists
+        //  Merging the lists
         emit(NewsLoaded(
           [...currentArticles, ...uniqueNewArticles],
           hasReachedMax,
